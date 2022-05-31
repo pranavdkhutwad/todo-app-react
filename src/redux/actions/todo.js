@@ -35,3 +35,15 @@ export const addTask = (task) => {
       });
   };
 };
+export const deleteTask = (id) => {
+  return (dispatch) => {
+    axios
+      .delete(
+        `https://react-todo-app-8a32f-default-rtdb.firebaseio.com/todos/${id}.json`
+      )
+      .then(() => dispatch(fetchTasks()))
+      .catch(() => {
+        dispatch({ type: "DELETE_TODO_ERROR" });
+      });
+  };
+};

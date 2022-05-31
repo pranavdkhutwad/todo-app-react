@@ -29,6 +29,12 @@ const todoReducer = (state = initialState, action) => {
         isError: true,
       };
     }
+    case "DELETE_TODO_ERROR": {
+      return {
+        ...state,
+        isError: true,
+      };
+    }
     default: {
       return state;
     }

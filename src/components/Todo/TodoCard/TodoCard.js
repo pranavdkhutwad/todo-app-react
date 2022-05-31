@@ -1,8 +1,16 @@
-import "./TodoCard.css";
+import { connect } from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-const TodoCard = ({ task }) => {
+import { deleteTask } from "../../../redux/actions/todo";
+
+import "./TodoCard.css";
+
+const TodoCard = ({ deleteTask, task }) => {
+  const deleteTaskHandler = () => {
+    deleteTask(task.id);
+  };
+
   return (
     <div className="card mb-3">
       <div className="card-header d-flex justify-content-between">
@@ -14,7 +22,7 @@ const TodoCard = ({ task }) => {
           <OverlayTrigger
             overlay={<Tooltip id="tooltip-delete">Delete</Tooltip>}
           >
-            <span class="oi oi-trash"></span>
+            <span onClick={deleteTaskHandler} class="oi oi-trash"></span>
           </OverlayTrigger>
         </div>
       </div>
@@ -26,4 +34,10 @@ const TodoCard = ({ task }) => {
   );
 };
 
-export default TodoCard;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTask: (id) => dispatch(deleteTask(id)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(TodoCard);
